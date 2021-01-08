@@ -1,2 +1,3 @@
-# bakery-app
-A Django app with Model Bakery examples 🥖👩‍🍳
+# farm-app
+
+A Django app with Model Bakery examples 👨‍🌾
