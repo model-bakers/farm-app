@@ -57,3 +57,14 @@ class TestAddress:
         farm = baker.prepare('farms.Farm', address__country='Brazil')
         assert farm.address
         assert farm.address.country == 'Brazil'
+
+
+@pytest.mark.django_db  # needed because we are accessing the db with make
+class TestFair:
+    def test_create_many_fairs_with_many_farms(self):
+        fairs = baker.make('farms.Fair', make_m2m=True, _quantity=3)
+
+        assert len(fairs) == 3
+        assert fairs[0].farms.count() > 0
+        assert fairs[1].farms.count() > 0
+        assert fairs[2].farms.count() > 0
