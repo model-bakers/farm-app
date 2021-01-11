@@ -37,3 +37,11 @@ class TestAnimal:
         # another way: directly importing
         cow = baker.make(Animal, specie=Animal.Species.COW)  # using make will persist the object
         assert cow.specie == "COW"
+
+
+@pytest.mark.django_db  # needed because we are accessing the db with make
+class TestAddress:
+    def test_create_addresses(self):
+        addresses = baker.make('farms.Address', _quantity=5)
+
+        assert len(addresses) == 5
