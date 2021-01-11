@@ -2,10 +2,21 @@ from django.db import models
 from datetime import datetime
 
 
+class Address(models.Model):
+    street_and_number = models.CharField(max_length=150)
+    city = models.CharField(max_length=50)
+    country = models.CharField(max_length=80)
+    zipcode = models.CharField(max_length=30)
+
+
 class Farm(models.Model):
     name = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
     area = models.DecimalField(max_digits=22, decimal_places=16)
+    address = models.OneToOneField(
+        Address,
+        on_delete=models.SET_NULL,
+        null=True
+    )
 
 
 class Farmer(models.Model):

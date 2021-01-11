@@ -8,8 +8,13 @@ class TestFarm:
         # one way of importing a model: app_label.model_name
         farm = baker.prepare('farms.Farm')  # won't be persisted
         assert isinstance(farm.name, str)
-        assert isinstance(farm.address, str)
         assert farm.area is not None
+
+    def test_add_address_to_a_farm(self):
+        # an example of OneToOne relation
+        farm = baker.prepare('farms.Farm', _fill_optional=["address"])
+        # returns a persisted address (see our docs)
+        assert farm.address
 
 
 class TestFarmer:
