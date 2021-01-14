@@ -45,3 +45,15 @@ class TestAddress:
         addresses = baker.make('farms.Address', _quantity=5)
 
         assert len(addresses) == 5
+
+    def test_create_address_with_optional_fields_filed(self):
+        # this is a nice shortcut if you want all optional fields to be filed
+        address = baker.make('farms.Address', _fill_optional=True)
+
+        assert address.additional_info is not None
+
+    def test_brazilian_farm(self):
+        # creates an Address object random values for all fields, but country
+        farm = baker.prepare('farms.Farm', address__country='Brazil')
+        assert farm.address
+        assert farm.address.country == 'Brazil'

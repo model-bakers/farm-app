@@ -7,6 +7,7 @@ class Address(models.Model):
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=80)
     zipcode = models.CharField(max_length=30)
+    additional_info = models.CharField(max_length=30, blank=True, null=True)
 
 
 class Farm(models.Model):
