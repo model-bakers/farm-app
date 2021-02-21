@@ -51,7 +51,11 @@ class Animal(models.Model):
 
 class Fair(models.Model):
     name = models.CharField(max_length=100)
-    # address = models.OneToOne()  # FIXME one to one
+    address = models.OneToOneField(
+        Address,
+        on_delete=models.SET_NULL,
+        null=True
+    )
     farms = models.ManyToManyField(Farm)
     when = models.CharField(max_length=100)
     periodical = models.BooleanField(default=True)
