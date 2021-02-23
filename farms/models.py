@@ -47,3 +47,20 @@ class Animal(models.Model):
     farm = models.ForeignKey(Farm, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100, null=True, blank=True)
     birthday = models.DateField()
+
+
+class Fair(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.OneToOneField(
+        Address,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    farms = models.ManyToManyField(Farm)
+    when = models.CharField(max_length=100)
+    periodical = models.BooleanField(default=True)
+    organizer = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    def __str__(self):
+        return f"Fair {self.name}"
