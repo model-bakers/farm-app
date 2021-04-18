@@ -21,6 +21,6 @@ jobs:
           flake8 .
           isort --check .
       - name: Check migrations
-          run: python manage.py makemigrations --check
+        run: python manage.py makemigrations --check
       - name: Run tests
         run: pytest
