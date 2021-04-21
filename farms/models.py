@@ -18,6 +18,7 @@ class Address(models.Model):
     country = models.CharField(max_length=80)
     zipcode = models.CharField(max_length=30)
     additional_info = models.CharField(max_length=30, blank=True, null=True)
+    registration_document = models.FileField(null=True)
 
 
 class Farm(models.Model):

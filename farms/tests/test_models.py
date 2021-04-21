@@ -60,6 +60,11 @@ class TestAddress:
         assert farm.address
         assert farm.address.country == 'Brazil'
 
+    def test_registration_document(self):
+        address = baker.make('farms.Address', _fill_optional=True, _create_files=True)
+        assert abspath(address.registration_document.path) == abspath("mock_file.txt")  # name given by Model Bakery
+        address.registration_document.delete()  # you need to do the clean up
+
 
 @pytest.mark.django_db  # needed because we are accessing the db with make
 class TestFair:
