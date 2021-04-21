@@ -77,12 +77,12 @@ class TestPictures:
     def test_create_picture_file(self):
         picture = baker.make('farms.Picture', _create_files=True)
 
-        assert abspath(picture.upload.path) == abspath("mock_file.txt")  # name given by Model Bakery
-        picture.upload.delete()  # you need to do the clean up
+        assert abspath(picture.image.path) == abspath("mock_img.jpeg")  # name given by Model Bakery
+        picture.image.delete()  # you need to do the clean up
 
     def test_create_picture_but_not_the_file(self):
         picture = baker.make('farms.Picture')  # _create_files default is False
 
         with pytest.raises(ValueError):
             # Django raises ValueError if file does not exist
-            assert picture.upload.path
+            assert picture.image.path
