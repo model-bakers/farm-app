@@ -1,3 +1,5 @@
+from os.path import abspath
+
 from model_bakery import baker
 from farms.models import Animal
 import pytest
@@ -58,6 +60,11 @@ class TestAddress:
         assert farm.address
         assert farm.address.country == 'Brazil'
 
+    def test_registration_document(self):
+        address = baker.make('farms.Address', _fill_optional=True, _create_files=True)
+        assert abspath(address.registration_document.path) == abspath("mock_file.txt")  # name given by Model Bakery
+        address.registration_document.delete()  # you need to do the clean up
+
 
 @pytest.mark.django_db  # needed because we are accessing the db with make
 class TestFair:
@@ -68,3 +75,19 @@ class TestFair:
         assert fairs[0].farms.count() > 0
         assert fairs[1].farms.count() > 0
         assert fairs[2].farms.count() > 0
+
+
+@pytest.mark.django_db  # needed because we are accessing the db with make
+class TestPictures:
+    def test_create_picture_file(self):
+        picture = baker.make('farms.Picture', _create_files=True)
+
+        assert abspath(picture.image.path) == abspath("mock_img.jpeg")  # name given by Model Bakery
+        picture.image.delete()  # you need to do the clean up
+
+    def test_create_picture_but_not_the_file(self):
+        picture = baker.make('farms.Picture')  # _create_files default is False
+
+        with pytest.raises(ValueError):
+            # Django raises ValueError if file does not exist
+            assert picture.image.path
