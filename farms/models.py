@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
 
 class Picture(models.Model):
@@ -24,11 +24,7 @@ class Address(models.Model):
 class Farm(models.Model):
     name = models.CharField(max_length=50)
     area = models.DecimalField(max_digits=22, decimal_places=16)
-    address = models.OneToOneField(
-        Address,
-        on_delete=models.SET_NULL,
-        null=True
-    )
+    address = models.OneToOneField(Address, on_delete=models.SET_NULL, null=True)
 
 
 class Farmer(models.Model):
@@ -45,11 +41,11 @@ class Farmer(models.Model):
 
 class Animal(models.Model):
     class Species(models.TextChoices):
-        COW = 'COW', 'cow'
-        DUCK = 'DUC', 'duck'
-        HORSE = 'HOR', 'horse'
-        CHICKEN = 'CHI', 'chicken'
-        NAN = 'NAN', 'not_identified_yet'
+        COW = "COW", "cow"
+        DUCK = "DUC", "duck"
+        HORSE = "HOR", "horse"
+        CHICKEN = "CHI", "chicken"
+        NAN = "NAN", "not_identified_yet"
 
     specie = models.CharField(
         max_length=3,
@@ -63,11 +59,7 @@ class Animal(models.Model):
 
 class Fair(models.Model):
     name = models.CharField(max_length=100)
-    address = models.OneToOneField(
-        Address,
-        on_delete=models.SET_NULL,
-        null=True
-    )
+    address = models.OneToOneField(Address, on_delete=models.SET_NULL, null=True)
     farms = models.ManyToManyField(Farm)
     when = models.CharField(max_length=100)
     periodical = models.BooleanField(default=True)
