@@ -49,7 +49,7 @@ test: clean ## Run tests
 # Shell section
 ###
 shell:  ## Run repl with development settings
-	@python manage.py shell
+	@python manage.py shell_plus
 
 ###
 # Run section
